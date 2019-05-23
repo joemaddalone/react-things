@@ -1,5 +1,4 @@
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CaseSensitivePathsPlugin = require("case-sensitive-paths-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -12,7 +11,7 @@ module.exports = {
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
-				use: ['babel-loader']
+				use: ['babel-loader', 'eslint-loader']
 			},
 			{
 				test: /\.css$/,
@@ -35,8 +34,8 @@ module.exports = {
 								  root: loader.resourcePath,
 							  } ),
 							  require( 'postcss-preset-env' )( {
-								  stage: 0,
-								  nesting: true
+								stage: 0,
+								nesting: true
 							  } ),
 							  require( 'autoprefixer' )(),
 							  require( 'cssnano' )( {
