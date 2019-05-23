@@ -1,0 +1,36 @@
+{
+  "labels": {
+    "A": "Analog",
+    "B": "Binary",
+    "C": "Cogent",
+    "D": "Divisor",
+    "E": "Element",
+    "F": "Fractional",
+    "G": "Geometric",
+    "H": "Hemisphere",
+    "I": "Intergenic",
+    "J": "Juxtapose",
+    "K": "Kaleidoscopy",
+    "L": "Lithium",
+    "M": "Magnitude",
+    "N": "Non-deterministic",
+    "O": "Orthogonal",
+    "P": "Propensity",
+    "Q": "Quaternary",
+    "R": "Relative",
+    "S": "Splice",
+    "T": "Twice",
+    "U": "Unce",
+    "V": "Vertex"
+  },
+  "loading": {
+    "computing": "Computing",
+    "beep": "beep",
+    "boop": "boop"
+  },
+  "config": {
+    "legend": "Science?",
+    "confirm": "Confirm Configuration",
+    "results": "Optimal results based on your configuration"
+  }
+}

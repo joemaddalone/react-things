@@ -1,29 +1,36 @@
 import { createStore } from "redux";
+import translate from "../util/translate";
 
-const labels = {
-  A: "Analog",
-  B: "Binary",
-  C: "Cogent",
-  D: "Divisor",
-  E: "Element",
-  F: "Fractional",
-  G: "Geometric",
-  H: "Hemisphere",
-  I: "Intergenic",
-  J: "Juxtapose",
-  K: "Kaleidoscopy",
-  L: "Lithium",
-  M: "Magnitude",
-  N: "Non-deterministic",
-  O: "Orthogonal",
-  P: "Propensity",
-  Q: "Quaternary",
-  R: "Relative",
-  S: "Splice",
-  T: "Twice",
-  U: "Unce",
-  V: "Vertex"
-};
+const t = translate(["labels"]);
+
+const labels = [
+  "A",
+  "B",
+  "C",
+  "D",
+  "E",
+  "F",
+  "G",
+  "H",
+  "I",
+  "J",
+  "K",
+  "L",
+  "M",
+  "N",
+  "O",
+  "P",
+  "Q",
+  "R",
+  "S",
+  "T",
+  "U",
+  "V"
+].reduce((accum, cur) => {
+  accum[cur] = t(cur);
+  return accum;
+}, {});
+
 
 const defaultConfiguration = {
   config: {
@@ -37,9 +44,13 @@ const defaultConfiguration = {
     H: 0,
     I: 0,
     J: 0,
-    K: labels.L,
-    O: labels.P,
-    S: labels.T
+    K: null,
+    O: null,
+	S: null,
+	K: t('L'),
+    O: t('P'),
+    S: t('T')
+
   },
   checks: ["A", "B", "C", "D", "E"],
   ranges: ["F", "G", "H", "I", "J"],

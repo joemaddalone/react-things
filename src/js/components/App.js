@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 import { hot } from "react-hot-loader";
 import { connect } from "react-redux";
 import key from "../key";
+import translate from "../../util/translate";
+const t = translate(["labels", "config", "loading"]);
 import "./App.css";
 
 const rand = (n, min = 0) => Math.floor(Math.random() * (n - min + 1)) + min;
 
 const Loader = () => {
-  const [message, setMessage] = useState(["Computing"]);
-  const messages = ["Computing", "beep", "boop", "beep"];
+  const [message, setMessage] = useState([t("computing")]);
+  const messages = [t("computing"), t("beep"), t("boop"), t("beep")];
   useEffect(() => {
     const timeout = setTimeout(() => {
       if (message.length === messages.length) {
@@ -23,7 +25,16 @@ const Loader = () => {
   return <p>{message.join("... ")}</p>;
 };
 
-const App = ({ config, selects, ranges, checks, labels, result, loading,dispatch }) => {
+const App = ({
+  config,
+  selects,
+  ranges,
+  checks,
+  labels,
+  result,
+  loading,
+  dispatch
+}) => {
   const updateConfig = e => {
     let val = e.target.value;
     if (e.target.type === "checkbox") {
@@ -42,14 +53,17 @@ const App = ({ config, selects, ranges, checks, labels, result, loading,dispatch
   };
 
   const getResult = () => {
-    dispatch({type: 'result', payload: null});
-    dispatch({type: 'loading', payload: true});
+    dispatch({ type: "result", payload: null });
+    dispatch({ type: "loading", payload: true });
     fetch(`http://api.giphy.com/v1/gifs/trending?api_key=${key}&limit=50`)
       .then(response => response.json())
       .then(data => {
         setTimeout(() => {
-          dispatch({type: 'result', payload: data.data[rand(49)].images.fixed_height_downsampled});
-          dispatch({type: 'loading', payload: false});
+          dispatch({
+            type: "result",
+            payload: data.data[rand(49)].images.fixed_height_downsampled
+          });
+          dispatch({ type: "loading", payload: false });
         }, 2500);
       });
   };
@@ -57,7 +71,7 @@ const App = ({ config, selects, ranges, checks, labels, result, loading,dispatch
   return (
     <div className="app-container" data-testid="app-component">
       <fieldset>
-        <legend>Science?</legend>
+        <legend>{t("legend")}</legend>
         <div className="configuration checkboxes">
           <div>
             {checks.map(item => (
@@ -109,7 +123,7 @@ const App = ({ config, selects, ranges, checks, labels, result, loading,dispatch
       <div className="command">
         {!loading ? (
           <button data-testid="config-button" onClick={getResult}>
-            Confirm Configuration
+            {t("confirm")}
           </button>
         ) : (
           <Loader />
@@ -128,7 +142,7 @@ const App = ({ config, selects, ranges, checks, labels, result, loading,dispatch
               />
             </div>
             <div style={{ width: "100%" }}>
-              <p>Optimal results based on your configuration</p>
+              <p>{t("results")}</p>
               <div>
                 {Object.keys(config).map(key => (
                   <span key={key} className="result-config">
@@ -156,4 +170,3 @@ App.propTypes = {
 };
 
 export default connect(state => state)(hot(module)(App));
-
