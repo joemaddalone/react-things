@@ -114,7 +114,7 @@ const Loader = () => {
     }, 500);
     return () => clearTimeout(timeout);
   }, [messages, message]);
-  return React.createElement("p", null, message.join("... "));
+  return <p>{message.join("... ")}</p>
 };
 
 const App = () => {
@@ -139,204 +139,99 @@ const App = () => {
   const getResult = () => {
     setResult(null);
     setLoading(true);
-    fetch(`http://api.giphy.com/v1/gifs/trending?api_key=${key}&limit=100`)
+    fetch(`http://api.giphy.com/v1/gifs/trending?api_key=${key}&limit=50`)
       .then(response => response.json())
       .then(data => {
         setTimeout(() => {
-          setResult(data.data[rand(99)].images.fixed_height_downsampled);
+          setResult(data.data[rand(49)].images.fixed_height_downsampled);
           setLoading(false);
         }, 2500);
       });
   };
 
-  return React.createElement(
-    "div",
-    { style: { fontFamily: "monospace" } },
-    React.createElement(
-      "div",
-      {
-        className: "controls"
-      },
-      React.createElement(
-        "fieldset",
-        { style: styles.fieldset },
-        React.createElement("legend", null, "Science?"),
-        React.createElement(
-          "div",
-          {
-            style: styles.configuration
-          },
-          React.createElement(
-            "div",
-            {
-              className: "config-box"
-            },
-            checks.map(item => {
-              return React.createElement(
-                "div",
-                {
-                  className: "checkbox-holder",
-                  key: item
-                },
-                React.createElement("input", {
-                  onChange: updateConfig,
-                  name: item,
-                  type: "checkbox",
-                  id: item
-                }),
-                React.createElement(
-                  "label",
-                  {
-                    htmlFor: item
-                  },
-                  labels[item]
-                )
-              );
-            })
-          ),
-          React.createElement(
-            "div",
-            null,
-            ranges.map(item => {
-              return React.createElement(
-                "div",
-                {
-                  style: styles.rangeBox,
-                  key: item
-                },
-                React.createElement(
-                  "label",
-                  {
-                    style: styles.rangeBoxLabel,
-                    htmlFor: item
-                  },
-                  labels[item],
-                  " (",
-                  config[item],
-                  ")"
-                ),
-                React.createElement("input", {
-                  onChange: updateConfig,
-                  name: item,
-                  type: "range",
-                  defaultValue: 0,
-                  min: 0,
-                  max: 99,
-                  id: item
-                })
-              );
-            })
-          )
-        ),
-        React.createElement(
-          "div",
-          {
-            style: styles.select
-          },
-          Object.keys(selects).map(key => {
-            return React.createElement(
-              "div",
-              {
-                style: styles.selectHolder,
-                key: key
-              },
-              React.createElement(
-                "label",
-                {
-                  htmlFor: key
-                },
-                labels[key]
-              ),
-              React.createElement(
-                "select",
-                {
-                  name: key,
-                  onInput: updateConfig
-                },
-                selects[key].map((item, index) => {
-                  return React.createElement(
-                    "option",
-                    {
-                      key: index
-                    },
-                    labels[item]
-                  );
-                })
-              )
-            );
-          })
-        )
-      )
-    ),
-    React.createElement(
-      "div",
-      {
-        style: styles.command
-      },
-      !loading
-        ? React.createElement(
-            "button",
-            {
-              onClick: getResult
-            },
-            "Confirm Configuration"
-          )
-        : React.createElement(Loader, null)
-    ),
-    React.createElement(
-      "div",
-      {
-        style: styles.result
-      },
-      result &&
-        React.createElement(
-          React.Fragment,
-          null,
-          React.createElement(
-            "div",
-            null,
-            React.createElement("img", {
-              alt: "result",
-              src: result.url,
-              width: result.width,
-              height: result.height
-            })
-          ),
-          React.createElement(
-            "div",
-            {
-              style: {
-                width: "100%"
-              }
-            },
-            React.createElement(
-              "p",
-              null,
-              "Optimal results based on your configuration"
-            ),
-            React.createElement(
-              "div",
-              null,
-              Object.keys(config).map(key => {
-                return React.createElement(
-                  "span",
-                  {
-                    key: key,
-                    style: styles.resultConfig
-                  },
-                  key,
-                  ": ",
-                  React.createElement(
-                    "span",
-                    { style: styles.resultConfigValue },
-                    config[key].toString()
-                  )
-                );
-              })
-            )
-          )
-        )
-    )
+  return (
+    <div>
+       <fieldset style={styles.fieldset}>
+         <legend>Science?</legend>
+         <div style={styles.configuration}>
+           <div>
+             {checks.map(item => (
+               <div key={item}>
+                 <input
+                   onChange={updateConfig}
+                   name={item}
+                   type="checkbox"
+                   id={item}
+                 />
+                 <label htmlFor={item}>{labels[item]}</label>
+               </div>
+             ))}
+           </div>
+           <div>
+             {ranges.map(item => (
+               <div style={styles.rangeBox} key={item}>
+                 <label style={styles.rangeBoxLabel} htmlFor={item}>
+                   {labels[item]} ({config[item]})
+                 </label>
+                 <input
+                   onChange={updateConfig}
+                   name={item}
+                   type="range"
+                   defaultValue={0}
+                   min={0}
+                   max={99}
+                   id={item}
+                 />
+               </div>
+             ))}
+           </div>
+         </div>
+         <div style={styles.configuration}>
+           {Object.keys(selects).map(key => (
+             <div style={styles.selectHolder} key={key}>
+               <label htmlFor={key}>{labels[key]}</label>
+               <select name={key} onInput={updateConfig}>
+                 {selects[key].map((item, index) => (
+                   <option key={index}>{labels[item]}</option>
+                 ))}
+               </select>
+             </div>
+           ))}
+         </div>
+       </fieldset>
+     
+     <div style={styles.command}>
+       {!loading ? (
+         <button onClick={getResult}>Confirm Configuration</button>
+       ) : (
+         <Loader />
+       )}
+     </div>
+     <div style={styles.result}>
+       {result && (
+         <>
+           <div>
+             <img
+               alt="result"
+               src={result.url}
+               width={result.width}
+               height={result.height}
+             />
+           </div>
+           <div style={{ width: "100%" }}>
+             <p>Optimal results based on your configuration</p>
+             <div>
+               {Object.keys(config).map(key => (
+                 <span key={key} style={styles.resultConfig}>
+                   {key}: <span style={styles.resultConfigValue}>{config[key].toString()}</span>
+                 </span>
+               ))}
+             </div>
+           </div>
+         </>
+       )}
+     </div>
+    </div>
   );
 };
 

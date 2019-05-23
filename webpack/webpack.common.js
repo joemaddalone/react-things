@@ -6,6 +6,20 @@ module.exports = {
 	entry: {
 		app: './src/js/index.js'
 	},
+	module: {
+		rules: [
+			{
+				test: /\.js$/,
+				exclude: /node_modules/,
+				use: ['babel-loader']
+			},
+			{
+				parser: {
+					amd: false
+				}
+			}
+		]
+	},
 	resolve: {
 		extensions: ['.js']
 	},
@@ -16,3 +30,4 @@ module.exports = {
 		new webpack.optimize.ModuleConcatenationPlugin()
 	]
 };
+
