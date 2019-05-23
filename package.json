@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config ./webpack/webpack.production.js",
     "dev": "webpack-dev-server --config ./webpack/webpack.development.js",
+    "analyze": "webpack --config ./webpack/webpack.analyze.js",
     "test": "jest --config=./jest/jest.config.js",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
@@ -63,8 +64,10 @@
     "postcss-preset-env": "^6.6.0",
     "react-hot-loader": "4.8.4",
     "react-testing-library": "^7.0.1",
+    "redux-devtools-extension": "^2.13.8",
     "terser-webpack-plugin": "^1.2.4",
     "webpack": "^4.32.2",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.4.1",
     "webpack-merge": "^4.2.1"

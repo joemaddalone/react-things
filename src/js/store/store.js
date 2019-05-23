@@ -1,5 +1,6 @@
 import { createStore } from "redux";
-import translate from "../util/translate";
+import { devToolsEnhancer } from 'redux-devtools-extension';
+import translate from "../../util/translate";
 
 const t = translate(["labels"]);
 
@@ -88,4 +89,4 @@ const reducer = (state = defaultConfiguration, action) => {
   }
 };
 
-export default createStore(reducer);
+export default createStore(reducer, devToolsEnhancer());
