@@ -70,9 +70,9 @@ const App = ({
 
   return (
     <div className="app-container" data-testid="app-component">
-      <fieldset>
+      <fieldset className="pa0 ma0 center mw6">
         <legend>{t("legend")}</legend>
-        <div className="configuration checkboxes">
+        <div className="pa2 mv0 center flex items-center justify-between">
           <div>
             {checks.map(item => (
               <div key={item}>
@@ -88,8 +88,8 @@ const App = ({
           </div>
           <div>
             {ranges.map(item => (
-              <div className="range-box" key={item}>
-                <label htmlFor={item}>
+              <div className="range-box w-100 bb b--moon-gray  flex items-center justify-center" key={item}>
+                <label htmlFor={item} className="dib w4">
                   {labels[item]} ({config[item]})
                 </label>
                 <input
@@ -106,10 +106,10 @@ const App = ({
             ))}
           </div>
         </div>
-        <div className="configuration select">
+        <div className="pa2 ma0 center mw6 bt b--moon-gray flex items-center justify-around">
           {Object.keys(selects).map(key => (
-            <div className="select-holder" key={key}>
-              <label htmlFor={key}>{labels[key]}</label>
+            <div className="flex flex-column justify-between" key={key}>
+              <label className="f7" htmlFor={key}>{labels[key]}</label>
               <select name={key} onInput={updateConfig}>
                 {selects[key].map((item, index) => (
                   <option key={index}>{labels[item]}</option>
@@ -120,7 +120,7 @@ const App = ({
         </div>
       </fieldset>
 
-      <div className="command">
+      <div className="ma2 flex items-center justify-center">
         {!loading ? (
           <button data-testid="config-button" onClick={getResult}>
             {t("confirm")}
@@ -129,7 +129,7 @@ const App = ({
           <Loader />
         )}
       </div>
-      <div className="result">
+      <div className="ma2 tc flex flex-column items-center justify-center">
         {result && (
           <>
             <div>
@@ -145,8 +145,8 @@ const App = ({
               <p>{t("results")}</p>
               <div>
                 {Object.keys(config).map(key => (
-                  <span key={key} className="result-config">
-                    {key}: <span>{config[key].toString()}</span>
+                  <span key={key} className="ma1">
+                    {key}: <span className="green">{config[key].toString()}</span>
                   </span>
                 ))}
               </div>
