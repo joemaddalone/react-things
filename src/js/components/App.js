@@ -104,7 +104,7 @@ const App = () => {
   };
 
   return (
-    <div className="app-container">
+    <div className="app-container" data-testid="app-component">
       <fieldset>
         <legend>Science?</legend>
         <div className="configuration checkboxes">
@@ -117,7 +117,7 @@ const App = () => {
                   type="checkbox"
                   id={item}
                 />
-                <label htmlFor={item}>{labels[item]}</label>
+                <label>{labels[item]}</label>
               </div>
             ))}
           </div>
