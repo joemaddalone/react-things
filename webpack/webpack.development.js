@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const merge = require("webpack-merge");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const common = require("./webpack.common");
 const publicPath = "/";
 
@@ -33,6 +34,9 @@ module.exports = () => {
 			}
 		},
 		plugins: [
+			new MiniCssExtractPlugin({
+				filename: "[name].css"
+			}),
 			new webpack.HotModuleReplacementPlugin(),
 			new HtmlWebpackPlugin({
 				template: "./src/index.html",

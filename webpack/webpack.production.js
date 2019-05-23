@@ -4,6 +4,7 @@ const merge = require("webpack-merge");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const common = require("./webpack.common");
 
 module.exports = () => {
@@ -57,6 +58,9 @@ module.exports = () => {
 			errorDetails: true
 		},
 		plugins: [
+			new MiniCssExtractPlugin({
+				filename: "../css/[name].css"
+			}),
 			new CleanWebpackPlugin(),
 			new HtmlWebpackPlugin({
 				template: "./src/index.html",
