@@ -156,7 +156,7 @@ const App = () => {
 
       <div className="command">
         {!loading ? (
-          <button onClick={getResult}>Confirm Configuration</button>
+          <button data-testid="config-button" onClick={getResult}>Confirm Configuration</button>
         ) : (
           <Loader />
         )}
@@ -166,6 +166,7 @@ const App = () => {
           <>
             <div>
               <img
+                data-testid="result-image"
                 alt="result"
                 src={result.url}
                 width={result.width}
